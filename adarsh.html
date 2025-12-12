@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SuperRecipes Blog</title>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="recipe.css"> 
+</head>
+<body>
+<header>
+<h1>SuperRecipes Blog</h1>
+<div id="authButtons">
+<button id="aboutButton" onclick="window.location.href='about.html'">About</button>
+<button id="logoutButton" onclick="logout()">Log Out</button>
+<button id="loginLink" onclick="window.location.href='login.html'">Login</button>
+</div>
+</header>
+<nav>
+<button onclick="filterRecipes('all')">All</button>
+<button onclick="filterRecipes('namkeen')">Namkeens</button>
+<button onclick="filterRecipes('maincourse')">Main Course</button>
+<button onclick="filterRecipes('sides')">Sides</button>
+<button onclick="window.location.href='add-recipe.html'">Add Recipe</button>
+</nav>
+<div class="search-bar">
+<input type="text" id="searchInput" placeholder="Search recipes..." onkeyup="searchRecipes()">
+</div>
+<h2 style="text-align:center;" id="namkeenTitle">Namkeens</h2>
+<div class="scroll-section" id="namkeenSection"></div>
+<h2 style="text-align:center;" id="maincourseTitle">Main Course</h2>
+<div class="scroll-section" id="maincourseSection"></div>
+<h2 style="text-align:center;" id="sidesTitle">Sides</h2>
+<div class="scroll-section" id="sidesSection"></div>
+<div class="recipes" id="recipesContainer">
+</div>
+<script src="recipes.js"></script>
+</body>
+</html>

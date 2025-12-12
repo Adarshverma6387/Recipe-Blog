@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Login</title>
+  <style>
+    .error {
+      color: red;
+      font-size: 14px;
+      display: block;
+      margin-bottom: 10px;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 50px;
+      background: linear-gradient(135deg, #fff5e6 0%, #ffe8cc 50%, #ffd9b3 100%);
+      min-height: 100vh;
+      margin: 0;
+    }
+    h1 { color: #ff9933;margin-bottom: 30px;
+    }
+    form {
+      border: 1px solid #ccc;
+      padding: 30px;
+      border-radius: 8px;
+      width: 300px;
+      background-color: white;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 500;
+      color: #333;
+    }
+
+    input[type="email"],
+    input[type="password"],
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #ff9933;
+    }
+
+    button {
+      padding: 12px 15px;
+      background-color: #ff9933;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+      font-weight: bold;
+      font-size: 16px;
+      margin-top: 10px;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #e68a00;
+    }
+
+    .success {
+      color: green;
+      font-size: 14px;
+      display: block;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>User Login</h1>
+  <form id="loginForm">
+    <label for="email">Email (or Username):</label>
+    <input type="email" id="email" name="email" required>
+    <span id="emailError" class="error"></span>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
+    <span id="passwordError" class="error"></span>
+
+    <span id="loginMessage" class="error"></span>
+
+    <button type="submit">Log In</button>
+  </form>
+
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      document.getElementById("emailError").textContent = "";
+      document.getElementById("passwordError").textContent = "";
+      document.getElementById("loginMessage").textContent = "";
+
+      let isValid = true;
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const loginMessageElement = document.getElementById("loginMessage");
+
+      const allowedDomains = [
+        "@gmail.com",
+        "@yahoo.com",
+        "@outlook.com",
+        "@hotmail.com"
+      ];
+
+
+
+      if (email === "") {
+        document.getElementById("emailError").textContent = "Email/Username is required.";
+        isValid = false;
+      } else {
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+          document.getElementById("emailError").textContent = "Please enter a valid email format (e.g., user@domain.com).";
+          isValid = false;
+        } else {
+
+          const isDomainAllowed = allowedDomains.some(domain => email.endsWith(domain));
+
+          if (!isDomainAllowed) {
+            document.getElementById("emailError").textContent = "Please enter a valid email";
+            isValid = false;
+          }
+        }
+      }
+
+      if (password === "") {
+        document.getElementById("passwordError").textContent = "Password is required.";
+        isValid = false;
+      } else if (password.length < 8) {
+        document.getElementById("passwordError").textContent = "Password must be at least 8 characters long.";
+        isValid = false;
+      }
+
+
+
+      if (isValid) {
+        loginMessageElement.textContent = "Attempting to log in...";
+        setTimeout(() => {
+          localStorage.setItem('isLoggedIn', 'true');
+
+          alert("Login successful! Redirecting to recipes...");
+          window.location.href = "adarsh.html";
+        }, 1000);
+      }
+    });
+  </script>
+</body>
+
+</html>
